@@ -1,3 +1,4 @@
+<%@page import="com.bingcao.AccountBean"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
@@ -9,7 +10,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>success jsp</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,13 +20,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
   <body>
-    <form action="LoginServlet" method="get">
-    <input name="UserName" type="text" value="">
-    <input name="PassWord" type="password" value="">
-    <input name="Finish" type="submit" >
-  </form>
+  Login Successed! <br>
+  
+   <%
+    AccountBean account = (AccountBean)session.getAttribute("account");
+    %>
+    username:<%= account.getUsername()%>
+     <br>
+     password:<%= account.getPassword() %>
+     
   </body>
 </html>

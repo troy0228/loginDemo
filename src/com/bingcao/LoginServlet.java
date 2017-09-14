@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -40,19 +41,31 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("doGet()");
+		HttpSession session = request.getSession();
+		
+		AccountBean account = new AccountBean();
+		
 		String username = request.getParameter("UserName");
 		String password = request.getParameter("PassWord");
 
 		System.out.println(username + ":" + password);
+		account.setPassword(password);
+		account.setUsername(username);
 
-		Writer out = response.getWriter();
+		//Writer out = response.getWriter();
 
 		String pwd = new GetSqlData().getdata(username);
 		System.out.println(pwd);
 		if (pwd.equals(password)) {
-			out.write("true");
+			
+			session.setAttribute("account", account);
+			String login_suc = "success.jsp";
+		    response.sendRedirect(login_suc);
+			//out.write("true");
 		} else {
-			out.write("false");
+			String login_fail = "fail.jsp";
+			response.sendRedirect(login_fail);
+			//out.write("false");
 		}
 	}
 
